@@ -6,22 +6,32 @@
         "start": "node app.js"
     },
     "dependencies": {
-        "express": "3.3.1",
+        "express": "~4.6.1",
+        "body-parser": "*",
+        "cookie-parser": "^1.0.1",
+        "express-session": "*",
+        "method-override": "^1.0.0",
+        "compression": "^1.0.2",
+        "response-time": "^1.0.0",
+        "errorhandler": "^1.0.0",
+        "connect-mongo": "^0.4.0",
         "ejs": "*",
-        "mongodb": "*",
-        "connect-mongo": "*",
-        "connect-flash": "*",
-        "request": "*",
-        "cheerio": "*",
-        "node-images": "*",
+        "ejs-locals": "^1.0.2",
         "moment": "*",
-        "MD5": "*",
-        "sha1": "*",
-        "mongodb-uri": "*",
         "mongoose": "*",
         "wechat":"*"
     },
     "author": "Jeremy16601",
+    "maintainers": [
+        {
+            "name": "Jeremy16601",
+            "email": ""
+        },
+        {
+            "name": "ifeit",
+            "email": "ifeiteng@gmail.com"
+        }
+    ],
     "license": "MIT",
     "readmeFilename": "README.md"
 }
