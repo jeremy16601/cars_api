@@ -3,16 +3,16 @@ var pkg = require('./package.json');
 
 var config = {
   debug: true,
-  name: 'wechat-webservice',
-  description: '基于wechat[https://github.com/node-webot/wechat]的web后台管理项目',
+  name: 'qianduo-webservice',
+  description: 'qianduo',
   version: pkg.version,
 
   upload_dir: path.join(__dirname, 'public', 'user_data'),
 
-  db: 'mongodb://localhost/wechat-server',
-  db_name: 'wechat-server',
-  session_secret: 'wechat-server-secret',
-  auth_cookie_name: 'wechat-server-auth-cookie',
+  db: 'mongodb://58.59.21.243/qianduo-server',
+  db_name: 'qianduo-server',
+  session_secret: 'wechat-qianduo-secret',
+  auth_cookie_name: 'wechat-qianduo-auth-cookie',
   port: 3001,
 
   mail_opts: {

@@ -1,5 +1,5 @@
 {
-    "name": "wechat-webserver",
+    "name": "qianduo",
     "version": "0.0.1",
     "private": true,
     "scripts": {
@@ -18,18 +18,13 @@
         "ejs": "*",
         "ejs-locals": "^1.0.2",
         "moment": "*",
-        "mongoose": "*",
-        "wechat":"*"
+        "mongoose": "*"
     },
     "author": "Jeremy16601",
     "maintainers": [
         {
             "name": "Jeremy16601",
             "email": "lixueqing1127@gmail.com"
-        },
-        {
-            "name": "ifeit",
-            "email": "ifeiteng@gmail.com"
         }
     ],
     "license": "MIT",
