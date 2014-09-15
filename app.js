@@ -1,50 +1,66 @@
 /**
  * Created by jeremy on 14-7-25.
  */
+/**
+ * Created by jeremy on 14-7-17.
+ */
 
-var path = require('path');
 var express = require('express');
-var session = require('express-session');
-var errorhandler = require('errorhandler');
-var MongoStore = require('connect-mongo')(session);
-var compress = require('compression');
-var config = require('./config');
-//var routes = require('./routes');
+var routes = require('./routes');
 
-var maxAge = 3600000 * 24 * 30;
-var staticDir = path.join(__dirname, 'public');
+var api = require('./routes/api');
+var http = require('http');
+var path = require('path'),
+    MongoStore = require('connect-mongo')(express),
+    config = require('./config'),
+    flash = require('connect-flash');
+var mongoose = require('./db').mongoose;
+
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function callback() {
+    console.log('db连接！！');
+});
 
 var app = express();
 
-app.use(require('cookie-parser')(config.session_secret));
-app.use(require('response-time')());
-app.use(require('body-parser')());
-app.use(require('method-override')());
-app.use(session({
-  secret: config.session_secret,
-  key: 'sid',
-  store: new MongoStore({
-    db: config.db_name
-  })
+
+// all environments
+app.set('port', process.env.PORT || 3000);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+app.use(flash());
+app.use(express.logger('dev'));
+app.use(express.bodyParser({
+    uploadDir: './uploads'
 }));
-app.use(compress());
+app.use(express.methodOverride());
+app.use(express.cookieParser());
+app.use(express.session({
+    secret: config.cookieSecret,
+    proxy: true,
+    key: config.db,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 * 30
+    }, //30 days
+    store: new MongoStore({
+        db: config.db
+    })
+}));
 
-// configuration in all env
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'html');
-app.engine('html', require('ejs-locals'));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(app.router);
+app.use(express.query());
 
-app.use('/public', express.static(staticDir));
-app.use(errorhandler({ dumpExceptions: true, showStack: true }));
-if (!config.debug) {
-  app.set('view cache', true);
+if ('development' == app.get('env')) {
+    app.use(express.errorHandler());
 }
+app.enable('trust proxy');
 
-// routes
+//var server = http.createServer(app);
+//server.listen(app.get('port'), function () {
+//});
+api(app);
 //routes(app);
 
-app.listen(config.port, function (argument) {
-  console.log("wechat-webserver listening on port %d in %s mode", config.port, app.settings.env);
-});
-
-module.exports = app;
+app.listen(process.env.PORT || 3000);
