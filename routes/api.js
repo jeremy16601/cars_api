@@ -2,15 +2,23 @@
  * Created by xueqingli on 14-9-15.
  */
 var Users = require('../models/users.js');
+var mer_Users = require('../models/merchant.js');
+
 
 module.exports = function (app) {
 
     //注册用户
     app.post('/api/register', Users.addUser);
+    //注册商户
+    app.post('/api/register', mer_Users.addMer_User);
     //完善用户信息
     app.post('/api/userEdit', Users.userEdit);
+    //完善商户信息
+    app.post('/api/userEdit', Users.merUserEdit);
     //用户列表
     app.get('/api/userList', Users.userList);
+    //商户列表
+    app.get('/api/userList', mer_Users.mer_UserList);
 //    //提交预约
 //    app.post('/weixin/addAppoint', Appoint.addAppointment);
 //    //预约列表

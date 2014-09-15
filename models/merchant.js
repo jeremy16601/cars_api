@@ -1,14 +1,13 @@
 /**
  * Created by xueqingli on 14-9-15.
- * 用户中心
+ * 商户中心
  */
-
 
 var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var UsersSchema = new Schema({
+var MerUsersSchema = new Schema({
     nickname: { //用户昵称
         type: String
     },
@@ -65,12 +64,12 @@ var UsersSchema = new Schema({
 });
 
 
-var userModel = mongoose.model('user', UsersSchema);
-exports.userModel = userModel;
+var mer_userModel = mongoose.model('mer_user', MerUsersSchema);
+exports.mer_userModel = mer_userModel;
 //用户列表
 
-exports.userList = function (req, res) {
-    userModel.find(function (err, doc) {
+exports.mer_UserList = function (req, res) {
+    mer_userModel.find(function (err, doc) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
         res.json(doc);
@@ -78,36 +77,24 @@ exports.userList = function (req, res) {
 };
 //根据用户名查询用户信息
 exports.userFindByName = function (nickname, callback) {
-    userModel.findOne({
+    mer_userModel.findOne({
         nickname: nickname
     }, function (err, doc) {
         if (doc)
-            var user = new userModel(doc);
+            var user = new mer_userModel(doc);
         callback(err, user); //成功！返回
     });
 
 };
-
-//根据OpenID查询用户是否存在
-exports.userFindByOpenId = function (req, res) {
-
-    userModel.findOne({
-        openid: req.query.openid
-    }, function (err, doc) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
-        res.json(doc)
-    });
-};
 //增加用户
-exports.addUser = function (req, res) {
+exports.addMer_User = function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
     //获取当前时间
     var date = new Date();
     var time = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes();
 
-    var user = new userModel({
+    var user = new mer_userModel({
         nickname: req.body.nickname,
         password: req.body.password,
         address: '',
@@ -126,7 +113,7 @@ exports.addUser = function (req, res) {
         imei: req.body.imei,
         lastlogin_time: time
     });
-    userModel.findOne({
+    mer_userModel.findOne({
         nickname: req.body.nickname
     }, function (err, doc) {
         if (doc == null) {
@@ -154,13 +141,13 @@ exports.addUser = function (req, res) {
 
 };
 //修改用户信息
-exports.userEdit = function (req, res) {
+exports.merUserEdit = function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
 
     delete req.body._id;
-    var user = new userModel({
+    var user = new mer_userModel({
         address: req.body.address,
         realname: req.body.realname,
         tel: req.body.tel,
@@ -193,7 +180,7 @@ exports.userEdit = function (req, res) {
         upUser.score = user.score;
     }
 
-    userModel.update({
+    mer_userModel.update({
         openid: req.body.openid
     }, {
         $set: upUser
@@ -214,7 +201,7 @@ exports.userEdit = function (req, res) {
 };
 //删除用户信息
 exports.userDel = function (req, res) {
-    userModel.remove({
+    mer_userModel.remove({
             openid: req.body.openid
         },
         function (err, doc) {
