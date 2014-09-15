@@ -1,9 +1,7 @@
 /**
  * Created by xueqingli on 14-9-15.
  */
-var crypto = require('crypto');
 var Users = require('../models/users.js');
-var request = require('request');
 
 module.exports = function (app) {
 
