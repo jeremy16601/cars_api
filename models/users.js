@@ -77,28 +77,35 @@ exports.userList = function (req, res) {
     });
 };
 //根据用户名查询用户信息
-exports.userFindByName = function (nickname, callback) {
+exports.userFindByName = function (req, res) {
     userModel.findOne({
-        nickname: nickname
+        nickname: req.query.nickname
     }, function (err, doc) {
-        if (doc)
-            var user = new userModel(doc);
-        callback(err, user); //成功！返回
+        if (doc) {
+            res.json(doc);
+        }else{
+            res.json(err);
+        }
     });
 
 };
 
-//根据OpenID查询用户是否存在
-exports.userFindByOpenId = function (req, res) {
+//Login
+exports.userLogin = function (req, res) {
 
-    userModel.findOne({
-        openid: req.query.openid
-    }, function (err, doc) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
-        res.json(doc)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+
+    userModel.findOne({nickname: req.body.nickname}, function (e, o) {
+        if (o) {
+            if (o.password == req.body.password) {
+                res.json({"success": true});
+            }
+        } else {
+            res.json({"success": false});
+        }
     });
-};
+}
 //增加用户
 exports.addUser = function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");

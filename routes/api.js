@@ -19,12 +19,15 @@ module.exports = function (app) {
     app.get('/api/userList', Users.userList);
     //商户列表
     app.get('/api/userList_Mer', mer_Users.mer_UserList);
-//    //提交预约
-//    app.post('/weixin/addAppoint', Appoint.addAppointment);
-//    //预约列表
-//    app.get('/weixin/getAppointList', Appoint.getAppointList);
-//    //我的订单
-//    app.get('/weixin/myOrders', Appoint.getMyOrders);
+    //用户登陆
+    app.post('/api/userLogin', Users.userLogin);
+    //商户登陆
+    app.post('/api/merLogin', mer_Users.merLogin);
+
+    //根据用户名得到用户详细信息
+    app.get('/api/userFindByName', Users.userFindByName);
+    //我的订单
+    app.get('/api/userFindByName_Mer', mer_Users.userFindByName_Mer);
 //    //删除订单
 //    app.get('/weixin/delOrder', Appoint.delOrder);
 //    //处理订单状态
@@ -37,34 +40,6 @@ module.exports = function (app) {
 //    app.get('/weixin/getAlbumListByImgType', albumList.getAlbumListByImgType);
 //    //根据id删除一张图片
 //    app.get('/weixin/delAlbumListByImgType', albumList.delAlbumListByImgType);
-
-
-    //提交预约
-    // app.post('/appoint-api', function(req, res) {
-    //     res.header("Access-Control-Allow-Origin", "*");
-    //     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
-    //     var appointment = {};
-    //     appointment.app_Type = req.body.app_Type; //预定类型
-    //     appointment.appointmentText = req.body.appointmentText; //post发送的问题内容
-    //     appointment.appointmentName = req.body.appointmentName;
-    //     appointment.appointmentTel = req.body.appointmentTel;
-    //     appointment.answer = []; //先设置一个空数组，这个数组以后push问题的回答
-    //     appointment.name = req.body.name; //提问者的名字
-    //     //调用addAppointment函数，存入用户预约
-    //     User.addAppointment(appointment, function(err, doc) {
-    //         if (err) {
-    //             req.flash('error', err);
-    //             res.json({
-    //                 "status": 0
-    //             });
-    //             return res.redirect('/');
-    //         }
-    //         //如果成功存入，返回{"status": 1}给客户端
-    //         res.json({
-    //             "status": 1
-    //         });
-    //     })
-    // });
 
 
 }

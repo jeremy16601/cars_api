@@ -76,16 +76,33 @@ exports.mer_UserList = function (req, res) {
     });
 };
 //根据用户名查询用户信息
-exports.userFindByName = function (nickname, callback) {
+exports.userFindByName_Mer = function (req, res) {
     mer_userModel.findOne({
-        nickname: nickname
+        nickname: req.query.nickname
     }, function (err, doc) {
-        if (doc)
-            var user = new mer_userModel(doc);
-        callback(err, user); //成功！返回
+        if (doc) {
+            res.json(doc);
+        }else{
+            res.json({"data":"暂无数据！"});
+        }
     });
 
 };
+//Login
+exports.merLogin = function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    mer_userModel.findOne({nickname: req.body.nickname}, function (e, o) {
+        if (o) {
+            if (o.password == req.body.password) {
+                res.json({"success": true});
+            }
+        } else {
+            res.json({"success": false});
+        }
+    });
+}
+
 //增加用户
 exports.addMer_User = function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
