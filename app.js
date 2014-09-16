@@ -6,9 +6,9 @@
  */
 
 var express = require('express');
-var routes = require('./routes');
+//var routes = require('./routes');
 
-var api = require('./routes/api');
+var api = require('./routes/api.js');
 var http = require('http');
 var path = require('path'),
     MongoStore = require('connect-mongo')(express),
