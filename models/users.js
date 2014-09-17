@@ -15,10 +15,10 @@ var UsersSchema = new Schema({
     password: { //密码
         type: String
     },
-    address: {//用户住址
+    address: { //用户住址
         type: String
     },
-    tel: {//电话
+    tel: { //电话
         type: String
     },
     alipay: { //用户支付宝
@@ -69,21 +69,21 @@ var userModel = mongoose.model('user', UsersSchema);
 exports.userModel = userModel;
 //用户列表
 
-exports.userList = function (req, res) {
-    userModel.find(function (err, doc) {
+exports.userList = function(req, res) {
+    userModel.find(function(err, doc) {
         res.header("Access-Control-Allow-Origin", "*");
         res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
         res.json(doc);
     });
 };
 //根据用户名查询用户信息
-exports.userFindByName = function (req, res) {
+exports.userFindByName = function(req, res) {
     userModel.findOne({
         nickname: req.query.nickname
-    }, function (err, doc) {
+    }, function(err, doc) {
         if (doc) {
             res.json(doc);
-        }else{
+        } else {
             res.json(err);
         }
     });
@@ -91,23 +91,29 @@ exports.userFindByName = function (req, res) {
 };
 
 //Login
-exports.userLogin = function (req, res) {
+exports.userLogin = function(req, res) {
 
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
-    userModel.findOne({nickname: req.body.nickname}, function (e, o) {
+    userModel.findOne({
+        nickname: req.body.nickname
+    }, function(e, o) {
         if (o) {
             if (o.password == req.body.password) {
-                res.json({"success": true});
+                res.json({
+                    "success": true
+                });
             }
         } else {
-            res.json({"success": false});
+            res.json({
+                "success": false
+            });
         }
     });
 }
 //增加用户
-exports.addUser = function (req, res) {
+exports.addUser = function(req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
     //获取当前时间
@@ -135,10 +141,10 @@ exports.addUser = function (req, res) {
     });
     userModel.findOne({
         nickname: req.body.nickname
-    }, function (err, doc) {
+    }, function(err, doc) {
         if (doc == null) {
             //新增
-            user.save(function (err, doc) {
+            user.save(function(err, doc) {
                 if (err) {
                     console.log('注册失败');
                     res.json({
@@ -153,15 +159,16 @@ exports.addUser = function (req, res) {
 
             });
         } else {
+            console.log('注册失败');
             res.json({
-                err_data: '用户已存在！'
+                success: false
             });
         }
     });
 
 };
 //修改用户信息
-exports.userEdit = function (req, res) {
+exports.userEdit = function(req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
@@ -206,7 +213,7 @@ exports.userEdit = function (req, res) {
         $set: upUser
     }, {
         multi: true
-    }, function (err, doc) {
+    }, function(err, doc) {
         if (err) {
             res.jsonp({
                 status: 2
@@ -220,11 +227,11 @@ exports.userEdit = function (req, res) {
     });
 };
 //删除用户信息
-exports.userDel = function (req, res) {
+exports.userDel = function(req, res) {
     userModel.remove({
             openid: req.body.openid
         },
-        function (err, doc) {
+        function(err, doc) {
             res.header("Access-Control-Allow-Origin", "*");
             res.setHeader('Access-Control-Allow-Methods', 'POST,GET,PUT,DELETE,OPTIONS');
             res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
