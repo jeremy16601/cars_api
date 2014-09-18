@@ -186,8 +186,8 @@ exports.userEdit = function(req, res) {
         constellation:req.body.constellation,
         signature:req.body.signature,
         work:req.body.work,
-        address:req.body.address
-
+        address:req.body.address,
+        lastlogin_time:req.body.lastlogin_time
     });
     //下面判断信息是否需要更新
     var upUser = {};
@@ -227,6 +227,10 @@ exports.userEdit = function(req, res) {
     if (!!user.address) {
         upUser.address = user.address;
     }
+    if(!!user.lastlogin_time){
+        upUser.lastlogin_time=user.lastlogin_time;
+    }
+
 
     userModel.update({
         _id: req.body._id
