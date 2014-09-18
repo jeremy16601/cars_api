@@ -26,31 +26,22 @@ var MerUsersSchema = new Schema({
     headimgurl: { // 用户头像
         type: String
     },
-    sex: { // 用户性别
+    realname: { // 真实姓名
         type: String
     },
-    birthday: { //用户生日
-        type: String
-    },
-    age: { //用户年龄
-        type: String
-    },
-    constellation: { //星座
+    qq: { //用户年龄
         type: String
     },
     signature: { //个性签名
         type: String
     },
-    work: { //用户工作
+    address: { //商户地址
         type: String
     },
-    createtime: { //注册时间
+    createtime: { //入驻平台的时间
         type: String
     },
-    yesterday_Profit: { //昨日获利
-        type: String
-    },
-    login_Status: { //用户登录状态
+    login_Status: { //商户登录状态
         type: String
     },
     imei: { //IMEI
@@ -82,8 +73,8 @@ exports.userFindByName_Mer = function (req, res) {
     }, function (err, doc) {
         if (doc) {
             res.json(doc);
-        }else{
-            res.json({"data":"暂无数据！"});
+        } else {
+            res.json({"data": "暂无数据！"});
         }
     });
 
@@ -118,14 +109,11 @@ exports.addMer_User = function (req, res) {
         tel: req.body.tel,
         alipay: req.body.alipay,
         headimgurl: '',
-        sex: '',
-        birthday: '',
-        age: '',
-        constellation: '', //星座
+        realname: '',
+        qq: '',
         signature: '', //个性签名
         work: '',
         createtime: time,
-        yesterday_Profit: '',
         login_Status: '',
         imei: req.body.imei,
         lastlogin_time: time
@@ -163,54 +151,65 @@ exports.merUserEdit = function (req, res) {
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
 
-    delete req.body._id;
+//    delete req.body._id;
     var user = new mer_userModel({
+        nickname: req.body.nickname,
         address: req.body.address,
-        realname: req.body.realname,
         tel: req.body.tel,
-        QQ: req.body.QQ
+        alipay: req.body.alipay,
+        headimgurl: req.body.headimgurl,
+        realname: req.body.realname,
+        qq: req.body.qq,
+        signature: req.body.signature, //个性签名
+        login_Status: req.body.login_Status,
+        lastlogin_time: req.body.lastlogin_time
+
     });
     //下面判断信息是否需要更新
     var upUser = {};
-    if (!!user.address) {
-        upUser.address = user.address;
+    if (!!user.nickname) {
+        upUser.nickname = user.nickname;
     }
     if (!!user.tel) {
         upUser.tel = user.tel;
     }
-    if (!!user.sex) {
-        upUser.sex = user.sex;
+    if (!!user.qq) {
+        upUser.qq = user.qq;
     }
-    if (!!user.openid) {
-        upUser.openid = user.openid;
+    if (!!user.alipay) {
+        upUser.alipay = user.alipay;
+    }
+    if (!!user.headimgurl) {
+        upUser.headimgurl = user.headimgurl;
     }
     if (!!user.realname) {
         upUser.realname = user.realname;
     }
-    if (!!user.QQ) {
-        upUser.QQ = user.QQ;
+    if (!!user.signature) {
+        upUser.signature = user.signature;
     }
-    if (!!user.imgUrl) {
-        upUser.imgUrl = user.imgUrl;
+    if (!!user.login_Status) {
+        upUser.login_Status = user.login_Status;
     }
-    if (!!user.score) {
-        upUser.score = user.score;
+    if (!!user.lastlogin_time) {
+        upUser.lastlogin_time = user.lastlogin_time;
     }
 
     mer_userModel.update({
-        openid: req.body.openid
+        _id: req.body._id
     }, {
         $set: upUser
     }, {
         multi: true
     }, function (err, doc) {
         if (err) {
-            res.jsonp({
-                status: 2
+            console.log('修改用户信息失败：' + err);
+            res.json({
+                success: false
             })
         } else {
-            res.jsonp({
-                status: 1
+            res.json({
+                success: true
             })
         }
 

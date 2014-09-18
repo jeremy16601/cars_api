@@ -173,17 +173,26 @@ exports.userEdit = function(req, res) {
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
 
-    delete req.body._id;
+//    delete req.body._id;
     var user = new userModel({
-        address: req.body.address,
-        realname: req.body.realname,
+        nickname: req.body.nickname,
+        password: req.body.password,
         tel: req.body.tel,
-        QQ: req.body.QQ
+        alipay: req.body.alipay,
+        headimgurl:req.body.headimgurl,
+        sex:req.body.sex,
+        birthday:req.body.birthday,
+        age:req.body.age,
+        constellation:req.body.constellation,
+        signature:req.body.signature,
+        work:req.body.work,
+        address:req.body.address
+
     });
     //下面判断信息是否需要更新
     var upUser = {};
-    if (!!user.address) {
-        upUser.address = user.address;
+    if (!!user.nickname) {
+        upUser.nickname = user.nickname;
     }
     if (!!user.tel) {
         upUser.tel = user.tel;
@@ -191,36 +200,49 @@ exports.userEdit = function(req, res) {
     if (!!user.sex) {
         upUser.sex = user.sex;
     }
-    if (!!user.openid) {
-        upUser.openid = user.openid;
+    if (!!user.password) {
+        upUser.password = user.password;
     }
-    if (!!user.realname) {
-        upUser.realname = user.realname;
+    if (!!user.alipay) {
+        upUser.alipay = user.alipay;
     }
-    if (!!user.QQ) {
-        upUser.QQ = user.QQ;
+    if (!!user.headimgurl) {
+        upUser.headimgurl = user.headimgurl;
     }
-    if (!!user.imgUrl) {
-        upUser.imgUrl = user.imgUrl;
+    if (!!user.birthday) {
+        upUser.birthday = user.birthday;
     }
-    if (!!user.score) {
-        upUser.score = user.score;
+    if (!!user.age) {
+        upUser.age = user.age;
+    }
+    if (!!user.constellation) {
+        upUser.constellation = user.constellation;
+    }
+    if (!!user.signature) {
+        upUser.signature = user.signature;
+    }
+    if (!!user.work) {
+        upUser.work = user.work;
+    }
+    if (!!user.address) {
+        upUser.address = user.address;
     }
 
     userModel.update({
-        openid: req.body.openid
+        _id: req.body._id
     }, {
         $set: upUser
     }, {
         multi: true
     }, function(err, doc) {
         if (err) {
-            res.jsonp({
-                status: 2
+            console.log('修改用户信息失败：'+err);
+            res.json({
+                success: false
             })
         } else {
-            res.jsonp({
-                status: 1
+            res.json({
+                success: true
             })
         }
 
