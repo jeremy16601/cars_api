@@ -61,3 +61,21 @@
 - post方式
 - 成功返回{"success": true}
 - 失败{"success": false}
+
+
+### 11.商户发布广告
+- http://localhost:3000/api/addAds
+- post方式 (参数按照文档顺序)
+- 参数：{nickname,ad_image,ad_title,pro_name,phone,mer_href,pro_detail,pro_oldprice,pro_price,sing_price,pub_time(不需要传入),count,days}
+- 成功返回{"success": true}
+- 失败{"success": false}
+
+### 12.所有广告列表
+- http://localhost:3000/api/mer_AdsList
+- get方式
+
+### 13.根据商户nickname 查询该商户发布的广告
+- http://localhost:3000/api/adsFindByName?nickname=XXX
+- post方式
+- 参数:nickname 
+- 成功返回数据列表

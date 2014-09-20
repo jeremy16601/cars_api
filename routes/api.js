@@ -3,6 +3,7 @@
  */
 var Users = require('../models/users.js');
 var mer_Users = require('../models/merchant.js');
+var mer_Ads=require('../models/mer_Ads.js');
 
 
 module.exports = function (app) {
@@ -28,18 +29,13 @@ module.exports = function (app) {
     app.get('/api/userFindByName', Users.userFindByName);
     //我的订单
     app.get('/api/userFindByName_Mer', mer_Users.userFindByName_Mer);
-//    //删除订单
-//    app.get('/weixin/delOrder', Appoint.delOrder);
-//    //处理订单状态
-//    app.get('/weixin/updateAppointSucced', Appoint.updateAppointSucced);
-//    //得到相册列表
-//    app.get('/weixin/getAlbumTypeList', albumType.getAlbumTypeList);
-//    //删除一个相册
-//    app.get('/weixin/delAlbumTypeList', albumType.delAlbumTypeList);
-//    //根据相册id得到相册图片列表
-//    app.get('/weixin/getAlbumListByImgType', albumList.getAlbumListByImgType);
-//    //根据id删除一张图片
-//    app.get('/weixin/delAlbumListByImgType', albumList.delAlbumListByImgType);
+
+    //广告列表
+    app.get('/api/mer_AdsList',mer_Ads.adsList);
+    //上传广告
+    app.post('/api/addAds',mer_Ads.addAds);
+    //根据商户名字查询广告信息
+    app.get('/api/adsFindByName',mer_Ads.adsFindByName);
 
 
 }
