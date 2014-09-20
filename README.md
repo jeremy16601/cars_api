@@ -79,3 +79,9 @@
 - post方式
 - 参数:nickname 
 - 成功返回数据列表
+### 14. 检测版本更新
+- http://localhost:3000/api/update
+- get方式
+- 成功返回{"path": "121.42.28.206:3000/qianduo.apk","version": "1"} 
+- path是apk下载路径，可以放到任何地方，到时候提供给我地址就可以，
+- android每次检测version，和AndroidManifest.xml 里的版本号是否一致，用来做更新判断；
