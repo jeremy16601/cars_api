@@ -40,7 +40,7 @@ module.exports = function (app) {
     //版本更新检测
     app.get('/api/update',function(req,res){
         res.json({
-            "path":"121.42.28.206:3000/qianduo.apk",
+            "path":"ip:3000/qianduo.apk",
             "version":"1"
         });
     });
