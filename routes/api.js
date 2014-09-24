@@ -4,7 +4,8 @@
 var Users = require('../models/users.js');
 var mer_Users = require('../models/merchant.js');
 var mer_Ads=require('../models/mer_Ads.js');
-
+var tops_Ads=require('../models/tops_ad.js');
+var forward_User=require('../models/forward_user.js');
 
 module.exports = function (app) {
 
@@ -37,10 +38,22 @@ module.exports = function (app) {
     //根据商户名字查询广告信息
     app.get('/api/adsFindByName',mer_Ads.adsFindByName);
 
+    //顶部广告列表
+    app.get('/api/adsTopList',tops_Ads.adsTopList);
+    //上传顶部广告
+    app.post('/api/addTopAds',tops_Ads.addTopAds);
+
+    //转发人列表
+    app.get('/api/forwardUserList',forward_User.forwardUserList);
+    //存储转发人
+    app.post('/api/addForwardUsers',forward_User.addForwardUsers);
+    //根据广告id 查询转发人列表
+    app.get('/api/forwardListByAdsID',forward_User.forwardListByAdsID);
+
     //版本更新检测
     app.get('/api/update',function(req,res){
         res.json({
-            "path":"ip:3000/qianduo.apk",
+            "path":"121.42.28.206:3000/qianduo.apk",
             "version":"1"
         });
     });

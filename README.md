@@ -79,9 +79,37 @@
 - post方式
 - 参数:nickname 
 - 成功返回数据列表
+
 ### 14. 检测版本更新
 - http://localhost:3000/api/update
 - get方式
-- 成功返回{"path": "121.42.28.206:3000/qianduo.apk","version": "1"} 
+- 成功返回{"path": "ip:3000/qianduo.apk","version": "1"} 
 - path是apk下载路径，可以放到任何地方，到时候提供给我地址就可以，
 - android每次检测version，和AndroidManifest.xml 里的版本号是否一致，用来做更新判断；
+
+### 15. 顶部广告列表
+- http://localhost:3000/api/adsTopList
+- get方式
+
+### 16. 添加顶部广告
+- http://localhost:3000/api/addTopAds
+- post方式
+- 参数：img_path ,img_href 
+- 成功返回{"success": true}
+- 失败{"success": false}
+
+### 17. 获取转发人全部列表
+- http://localhost:3000/api/forwardUserList
+- get方式
+
+### 18. 存储转发人
+- http://localhost:3000/api/addForwardUsers
+- post方式
+-参数 转发人昵称：f_nickname，广告ID：f_adsID
+- 成功返回{"success": true}
+- 失败{"success": false}
+
+### 19. 根据广告id 查询转发人列表
+- http://localhost:3000/api/forwardListByAdsID?adsID=xxx
+- get方式 参数：adsID
+- 成功返回数据列表

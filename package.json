@@ -21,7 +21,7 @@
         "node-images": "*",
         "nodemailer": "0.7.1",
         "request": "*",
-        "sha1": "*",
+        "fs": "*",
         "superagent": "*",
         "mongoose-pagination": "*"
     },
