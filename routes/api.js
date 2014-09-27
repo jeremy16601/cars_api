@@ -6,6 +6,7 @@ var mer_Users = require('../models/merchant.js');
 var mer_Ads=require('../models/mer_Ads.js');
 var tops_Ads=require('../models/tops_ad.js');
 var forward_User=require('../models/forward_user.js');
+var pay=require('../models/pay.js');
 
 module.exports = function (app) {
 
@@ -49,6 +50,11 @@ module.exports = function (app) {
     app.post('/api/addForwardUsers',forward_User.addForwardUsers);
     //根据广告id 查询转发人列表
     app.get('/api/forwardListByAdsID',forward_User.forwardListByAdsID);
+
+    //pay列表
+    app.get('/api/payList',pay.payList);
+    //结账
+    app.post('/api/addPay',pay.addPay);
 
     //版本更新检测
     app.get('/api/update',function(req,res){

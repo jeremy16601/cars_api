@@ -113,3 +113,8 @@
 - http://localhost:3000/api/forwardListByAdsID?adsID=xxx
 - get方式 参数：adsID
 - 成功返回数据列表
+
+### 20. 结账接口
+- http://localhost:3000/api/addPay
+- post方式 参数：alipay,nickname,imei
+- 成功{success: true} 失败{success: false}
