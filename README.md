@@ -66,7 +66,7 @@
 ### 11.商户发布广告
 - http://localhost:3000/api/addAds
 - post方式 (参数按照文档顺序)
-- 参数：{nickname,ad_image,ad_title,pro_name,phone,mer_href,pro_detail,pro_oldprice,pro_price,sing_price,pub_time(不需要传入),count,days}
+- 参数：{nickname,ad_type,ad_image,ad_title,pro_name,phone,mer_href,pro_detail,pro_oldprice,pro_price,sing_price,pub_time(不需要传入),count,days}
 - 成功返回{"success": true}
 - 失败{"success": false}
 
@@ -105,7 +105,7 @@
 ### 18. 存储转发人
 - http://localhost:3000/api/addForwardUsers
 - post方式
--参数 转发人昵称：f_nickname，广告ID：f_adsID
+-参数 转发人昵称：f_nickname，广告ID：f_adsID ，广告分类ID ：f_adsType
 - 成功返回{"success": true}
 - 失败{"success": false}
 

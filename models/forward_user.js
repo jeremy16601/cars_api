@@ -10,6 +10,9 @@ var forwardSchema = new Schema({
     f_nickname: { //转发人
         type: String
     },
+    f_adsType:{ //广告分类id
+        type:String
+    },
     f_adsID: { //广告id
         type: String
     }},{

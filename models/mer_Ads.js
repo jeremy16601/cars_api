@@ -14,6 +14,9 @@ var adsSchema = new Schema({
         type: String,
         ref: 'mer_user'
     },
+    ad_type:{ //发布广告分类
+        type:String
+    },
     ad_image: { //广告图片
         type: String
     },
