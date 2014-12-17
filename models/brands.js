@@ -6,8 +6,8 @@ var mongoose = require('mongoose');
 
 var Schema = mongoose.Schema;
 
-var UsersSchema = new Schema({
-    name: { //用户昵称
+var BrandSchema = new Schema({
+    brand_name: { //用户昵称
         type: String
     }
 }, {
@@ -15,9 +15,9 @@ var UsersSchema = new Schema({
 });
 
 
-var brandsModel = mongoose.model('brands', UsersSchema);
+var brandsModel = mongoose.model('brands', BrandSchema);
 exports.brandsModel = brandsModel;
-//用户列表
+//品牌列表
 exports.brandsList = function (req, res) {
     brandsModel.find(function (err, doc) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -29,7 +29,7 @@ exports.brandsList = function (req, res) {
 //根据id查询品牌信息
 exports.brandsFindByName = function (req, res) {
     brandsModel.findOne({
-        nickname: req.query.nickname
+        brand_name: req.query.brand_name
     }, function (err, doc) {
         if (doc) {
             res.json(doc);
@@ -40,16 +40,16 @@ exports.brandsFindByName = function (req, res) {
 
 };
 
-//增加用户
+//增加一级品牌
 exports.addBrands = function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
     var brand = new brandsModel({
-        name: req.body.name
+        brand_name: req.body.brand_name
     });
     brandsModel.findOne({
-        name: req.body.name
+        brand_name: req.body.brand_name
     }, function (err, doc) {
         if (doc == null) {
             //新增
@@ -76,7 +76,7 @@ exports.addBrands = function (req, res) {
     });
 
 };
-//修改用户信息
+//修改品牌信息
 exports.userEdit = function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
