@@ -1,5 +1,5 @@
 module.exports = {
-    cookieSecret: 'qianduoDB',
-    db: 'qianduoDB',
-    host: 'localhost'
+    cookieSecret: 'mycars',
+    db: 'mycars',
+    host: '114.215.134.174'
 }; 

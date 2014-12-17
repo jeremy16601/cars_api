@@ -19,7 +19,7 @@ var options = {
 };
 
 
-var mongodbUri = 'mongodb://localhost/qianduoDB';
+var mongodbUri = 'mongodb://114.215.134.174/cars_webapp';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
 mongoose
