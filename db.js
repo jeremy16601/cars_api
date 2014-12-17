@@ -2,7 +2,6 @@ var mongoose = require('mongoose');
 
 var uriUtil = require('mongodb-uri');
 
-
 var options = {
     server: {
         socketOptions: {
@@ -19,7 +18,7 @@ var options = {
 };
 
 
-var mongodbUri = 'mongodb://114.215.134.174/cars_webapp';
+var mongodbUri = 'mongodb://114.215.134.174/cars_api';
 var mongooseUri = uriUtil.formatMongoose(mongodbUri);
 
 mongoose
