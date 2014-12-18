@@ -10,16 +10,15 @@ var Schema = mongoose.Schema;
 var Brand_TypeSchema = new Schema({
     childname: { //子分类
         type: String
-    }, brandName: {
-        type: Schema.Types.ObjectId,
-        ref: 'brand_name'
+    }, brand_type: {
+        type: String
     }
 }, {
     versionKey: false
 });
 
 
-var brands_TypeModel = mongoose.model('brand_type', Brand_TypeSchema);
+var brands_TypeModel = mongoose.model('brandsList', Brand_TypeSchema);
 exports.brands_TypeModel = brands_TypeModel;
 
 //品牌列表
@@ -39,22 +38,36 @@ exports.addBrandType = function (req, res) {
 
     var brandType = new brands_TypeModel({
         childname: req.body.childname,
-        brandName:req.body.brandName
+        brand_type: req.body.brand_type
     });
-            //新增
+    console.log(2323 + brandType);
+    //新增
     brandType.save(function (err, doc) {
-                if (err) {
-                    console.log('保存失败');
-                    res.json({
-                        success: false
-                    },err);
-                } else {
-                    console.log('保存成功！');
-                    res.json({
-                        success: true
-                    });
-                }
+        if (err) {
+            console.log('保存失败' + err);
+            res.json({
+                success: false
             });
+        } else {
+            console.log('保存成功！');
+            res.json({
+                success: true
+            });
+        }
+    });
+};
 
-
+//根据brand_type查询品牌信息
+exports.brandsTypeById = function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    brands_TypeModel.find({
+        brand_type: req.query.brand_type
+    }, function (err, doc) {
+        if (doc) {
+            res.json(doc);
+        } else {
+            res.json(err);
+        }
+    });
 };

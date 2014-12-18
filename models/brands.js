@@ -7,7 +7,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var BrandSchema = new Schema({
-    brand_name: { //用户昵称
+    brand_name: { //汽车1级分类
+        type: String
+    }, brand_type: {
         type: String
     }
 }, {
@@ -37,7 +39,6 @@ exports.brandsFindByName = function (req, res) {
             res.json(err);
         }
     });
-
 };
 
 //增加一级品牌
@@ -46,10 +47,11 @@ exports.addBrands = function (req, res) {
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
     var brand = new brandsModel({
-        brand_name: req.body.brand_name
+        brand_name: req.body.brand_name,
+        brand_type: req.body.brand_type
     });
     brandsModel.findOne({
-        brand_name: req.body.brand_name
+        brand_type: req.body.brand_type
     }, function (err, doc) {
         if (doc == null) {
             //新增
