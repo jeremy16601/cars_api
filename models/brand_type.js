@@ -71,3 +71,4 @@ exports.brandsTypeById = function (req, res) {
         }
     });
 };
+

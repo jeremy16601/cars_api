@@ -23,12 +23,12 @@ var Brand3chema = new Schema({
 });
 
 
-var brand3Model = mongoose.model('brands', Brand3chema);
+var brand3Model = mongoose.model('brandTT', Brand3chema);
 exports.brand3Model = brand3Model;
 
 
 //增加关联排量
-exports.addBrandType = function (req, res) {
+exports.addBrandTT = function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
@@ -38,7 +38,6 @@ exports.addBrandType = function (req, res) {
         brand3_time: req.body.brand3_time,
         brands3_id: req.body.brands3_id
     });
-    console.log(2323 + brandType);
     //新增
     brand3.save(function (err, doc) {
         if (err) {
@@ -54,3 +53,19 @@ exports.addBrandType = function (req, res) {
         }
     });
 };
+
+//根据brand_type查询品牌信息
+exports.getBrandList = function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
+    brand3Model.find({
+        brands3_id: req.query.brandsid
+    }, function (err, doc) {
+        if (doc) {
+            res.json(doc);
+        } else {
+            res.json(err);
+        }
+    });
+};
+
