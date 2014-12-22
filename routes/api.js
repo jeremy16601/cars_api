@@ -15,6 +15,14 @@ router.post('/addBrandTT', BrandTT.addBrandTT);
 //根据品牌id查询分类
 router.get('/brandsTypeById', BrandType.brandsTypeById);
 //根据分类id查询排量信息
-router.get('/brandTT',BrandTT.getBrandList);
+router.get('/brandTT', BrandTT.getBrandList);
+
+router.get('/stu_answer', function (req, res) {
+
+    setTimeout(function () {
+            res.json({status: 0});
+        },
+        2000);
+});
 
 module.exports = router;
