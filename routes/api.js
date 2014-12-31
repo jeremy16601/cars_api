@@ -2,7 +2,8 @@ var express = require('express');
 var router = express.Router();
 var Brands = require('../models/brands');
 var BrandType = require('../models/brand_type');
-var BrandTT = require('../models/brand3')
+var BrandTT = require('../models/brand3');
+var order = require('../models/order');
 
 //品牌列表
 router.get('/getbrandsList', Brands.brandsList);
@@ -16,6 +17,10 @@ router.post('/addBrandTT', BrandTT.addBrandTT);
 router.get('/brandsTypeById', BrandType.brandsTypeById);
 //根据分类id查询排量信息
 router.get('/brandTT', BrandTT.getBrandList);
+//订单列表
+router.get('/orderList', order.orderList);
+//添加订单
+router.post('/setOrder', order.addOrder);
 
 router.get('/stu_answer', function (req, res) {
 
