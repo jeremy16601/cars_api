@@ -30,6 +30,10 @@ var orderSchema = new Schema({
         type: String
     }, payType: {
         type: String
+    }, products: {
+        type: String
+    }, amount: {
+        type: String
     }
 }, {
     versionKey: false
@@ -53,6 +57,7 @@ exports.addOrder = function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header('Access-Control-Allow-Methods', 'OPTIONS,GET,POST,PUT,DELETE');
 
+    console.log('products=' + req.body.products);
     var order = new orderModel({
         username: req.body.username,
         address: req.body.address,
@@ -64,7 +69,9 @@ exports.addOrder = function (req, res) {
         vin: req.body.vin,
         fapiao: req.body.fapiao,
         beizhu: req.body.beizhu,
-        payType: req.body.payType
+        payType: req.body.payType,
+        products: req.body.products,
+        amount: req.body.amount
     });
     //新增
     order.save(function (err, doc) {
